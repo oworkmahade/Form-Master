@@ -1,48 +1,23 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
-const StatefulForm = () => {
-  const [phone, setPhone] = useState(null);
-  const [name, setName] = useState("Mahade Hasan");
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [error, setError] = useState("");
+const RefForm = () => {
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+  const passwordRef = useRef(null);
+  const addressRef = useRef(null);
 
-  // form submit
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
-    console.log(name);
-    console.log(phone);
-
-    if (password.length < 6) {
-      setError("Password must be 6 character or longer ! ");
-    } else {
-      setError("");
-    }
-  };
-
-  // phone change (individual field state)
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  // name change (individual field state)
-  const handleNameChange = (e) => {
-    // console.log(e.target.value);
-    setName(e.target.value);
-  };
-
-  // password change (individual field state)
-  const handlePasswordChange = (e) => {
-    console.log(e.target.value);
-    setPassword(e.target.value);
-  };
-
-  // email change (individual field state )
-  const handleEmailChange = (e) => {
-    // console.log(e.target.value);
-    setEmail(e.target.value);
+    console.log(nameRef.current.value);
+    console.log(emailRef.current.value);
+    console.log(phoneRef.current.value);
+    console.log(passwordRef.current.value);
+    console.log(addressRef.current.value);
   };
 
   return (
@@ -61,10 +36,9 @@ const StatefulForm = () => {
             Full Name
           </label>
           <input
-            onChange={handleNameChange}
+            ref={nameRef}
             type="text"
             name="name"
-            value={name}
             placeholder="Enter your name"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
@@ -77,25 +51,11 @@ const StatefulForm = () => {
             Email Address
           </label>
           <input
-            onChange={handleEmailChange}
+            ref={emailRef}
             type="email"
             name="email"
+            defaultValue={"wtbl.hasan@gmail.com"}
             placeholder="Enter your email"
-            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Password */}
-        <div>
-          <label className="block mb-1 text-sm font-medium text-gray-600">
-            Password
-          </label>
-          <input
-            onChange={handlePasswordChange}
-            type="password"
-            name="password"
-            placeholder="Enter your password"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -107,10 +67,40 @@ const StatefulForm = () => {
             Phone Number
           </label>
           <input
-            onChange={handlePhoneChange}
+            ref={phoneRef}
             type="text"
             name="phone"
             placeholder="Enter your phone"
+            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block mb-1 text-sm font-medium text-gray-600">
+            Password
+          </label>
+          <input
+            ref={passwordRef}
+            type="text"
+            name="password"
+            placeholder="Enter your Password"
+            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        {/* Address */}
+        <div>
+          <label className="block mb-1 text-sm font-medium text-gray-600">
+            Address
+          </label>
+          <input
+            ref={addressRef}
+            type="text"
+            name="address"
+            placeholder="Enter your Address"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -122,11 +112,9 @@ const StatefulForm = () => {
           value="Submit"
           className="w-full py-2 text-white font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition duration-300 cursor-pointer"
         />
-
-        {error && <p>{error}</p>}
       </form>
     </div>
   );
 };
 
-export default StatefulForm;
+export default RefForm;
