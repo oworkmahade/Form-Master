@@ -1,49 +1,20 @@
-import { useState } from "react";
+import useInputState from "../../hooks/useInputState";
 
-const StatefulForm = () => {
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [error, setError] = useState("");
+const HookForm = () => {
+  //   const [name, setName] = useInputState("");
+  const nameState = useInputState("");
 
-  // form submit
+  //   const [email, setEmail] = useInputState("");
+  //   const [phone, setPhone] = useInputState("");
+  //   const [password, setPassword] = useInputState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(email);
-    console.log(password);
-    console.log(name);
-    console.log(phone);
-
-    if (password.length < 6) {
-      setError("Password must be 6 character or longer ! ");
-    } else {
-      setError("");
-    }
-  };
-
-  // name change (individual field state)
-  const handleNameChange = (e) => {
-    // console.log(e.target.value);
-    setName(e.target.value);
-  };
-
-  // email change (individual field state )
-  const handleEmailChange = (e) => {
-    // console.log(e.target.value);
-    setEmail(e.target.value);
-  };
-
-  // password change (individual field state)
-  const handlePasswordChange = (e) => {
-    // console.log(e.target.value);
-    setPassword(e.target.value);
-  };
-
-  // phone change (individual field state)
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
+    console.log(nameState.value);
+    // console.log("name :", name);
+    // console.log("email :", email);
+    // console.log("phone:", phone);
+    // console.log("password:", password);
   };
 
   return (
@@ -62,10 +33,12 @@ const StatefulForm = () => {
             Full Name
           </label>
           <input
-            onChange={handleNameChange}
+            // value={name}
+            // onChange={setName}
+
+            {...nameState}
             type="text"
             name="name"
-            value={name}
             placeholder="Enter your name"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
@@ -78,25 +51,11 @@ const StatefulForm = () => {
             Email Address
           </label>
           <input
-            onChange={handleEmailChange}
+            // value={email}
+            // onChange={setEmail}
             type="email"
             name="email"
             placeholder="Enter your email"
-            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Password */}
-        <div>
-          <label className="block mb-1 text-sm font-medium text-gray-600">
-            Password
-          </label>
-          <input
-            onChange={handlePasswordChange}
-            type="password"
-            name="password"
-            placeholder="Enter your password"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -108,10 +67,27 @@ const StatefulForm = () => {
             Phone Number
           </label>
           <input
-            onChange={handlePhoneChange}
+            // value={phone}
+            // onChange={setPhone}
             type="text"
             name="phone"
             placeholder="Enter your phone"
+            className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block mb-1 text-sm font-medium text-gray-600">
+            Password
+          </label>
+          <input
+            // value={password}
+            // onChange={setPassword}
+            type="text"
+            name="password"
+            placeholder="Enter your password"
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -123,11 +99,9 @@ const StatefulForm = () => {
           value="Submit"
           className="w-full py-2 text-white font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition duration-300 cursor-pointer"
         />
-
-        {error && <p>{error}</p>}
       </form>
     </div>
   );
 };
 
-export default StatefulForm;
+export default HookForm;
